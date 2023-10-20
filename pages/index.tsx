@@ -48,6 +48,9 @@ export default function Home() {
 
     const allContentSelected = pills.find(pill => pill.label === 'All content')?.selected;
     const excludedCategories = allContentSelected ? [] : pills.filter(pill => !pill.selected && pill.label !== 'All content').map(pill => pill.label);
+    const includedCategories = pills
+        .filter(pill => pill.selected && pill.label !== 'All content')
+        .map(pill => pill.label);
 
     return (
         <>
@@ -74,6 +77,16 @@ export default function Home() {
                 <div>
                     <span className="font-bold">Excluded Categories:</span>
                     <pre className="mt-2">{JSON.stringify(excludedCategories, null, 2)}</pre>
+                </div>
+                <div>
+                    <span className="font-bold">Included Categories:</span>
+                    <pre className="mt-2">
+        {JSON.stringify(
+            includedCategories,
+            null,
+            2
+        )} { excludedCategories.length === 0 ? ' + all content published in non-newsletter categories' : ''}
+    </pre>
                 </div>
             </div>
         </>
